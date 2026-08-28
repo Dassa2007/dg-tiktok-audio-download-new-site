@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Video & Audio Downloader</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #38bdf8;
+            font-size: 24px;
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #475569;
+            background: #0f172a;
+            color: #fff;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+        }
+        input[type="text"]:focus {
+            border-color: #38bdf8;
+        }
+        button {
+            background: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 12px 20px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #0ea5e9;
+        }
+        .loading {
+            display: none;
+            margin: 15px 0;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        .result-box {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+        }
+        .result-box img {
+            width: 100%;
+            max-height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        .result-box h3 {
+            font-size: 13px;
+            margin-bottom: 15px;
+            color: #f1f5f9;
+            line-height: 1.4;
+        }
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .download-btn {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .hd-btn {
+            background: #22c55e;
+            color: white;
+        }
+        .hd-btn:hover {
+            background: #16a34a;
+        }
+        .sd-btn {
+            background: #eab308;
+            color: #0f172a;
+        }
+        .sd-btn:hover {
+            background: #ca8a04;
+        }
+        .audio-btn {
+            background: #ec4899;
+            color: white;
+        }
+        .audio-btn:hover {
+            background: #db2777;
+        }
+        .error-msg {
+            color: #f87171;
+            margin-top: 15px;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>TikTok Downloader</h2>
+        <div class="input-group">
+            <input type="text" id="tiktokUrl" placeholder="TikTok වීඩියෝ ලින්ක් එක මෙතැනට දාන්න...">
+            <button onclick="downloadVideo()">Find</button>
+        </div>
+
+        <div class="loading" id="loadingText">විස්තර ලබා ගනිමින් පවතී... ටිකක් ඉන්න.</div>
+        <div class="error-msg" id="errorText"></div>
+
+        <div class="result-box" id="resultBox">
+            <img id="videoCover" src="" alt="Cover">
+            <h3 id="videoTitle"></h3>
+            
+            <div class="btn-container">
+                <a id="downloadHD" class="download-btn hd-btn" href="#" target="_blank">📥 HD Video Download</a>
+                <a id="downloadSD" class="download-btn sd-btn" href="#" target="_blank">📥 SD Video Download</a>
+                <a id="downloadAudio" class="download-btn audio-btn" href="#" target="_blank">🎵 Fast Download Audio (MP3)</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://dg-tiktok-audio-download-api.vercel.app';
+
+        async function downloadVideo() {
+            const urlInput = document.getElementById('tiktokUrl').value.trim();
+            const loadingText = document.getElementById('loadingText');
+            const errorText = document.getElementById('errorText');
+            const resultBox = document.getElementById('resultBox');
+
+            errorText.style.display = 'none';
+            resultBox.style.display = 'none';
+
+            if (!urlInput) {
+                errorText.innerText = "කරුණාකර TikTok ලින්ක් එකක් ඇතුළත් කරන්න!";
+                errorText.style.display = 'block';
+                return;
+            }
+
+            loadingText.style.display = 'block';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/download/tiktok`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ url: urlInput })
+                });
+
+                const data = await response.json();
+                loadingText.style.display = 'none';
+
+                if (data.success) {
+                    document.getElementById('videoCover').src = data.data.cover;
+                    document.getElementById('videoTitle').innerText = data.data.title;
+                    
+                    // ඔබේ අලුත් API එක හරහා Fast Direct Download ලින්ක් සැකසීම
+                    const proxyHD = `${API_BASE}/api/proxy-download?url=${encodeURIComponent(data.data.videoHD)}&type=video`;
+                    const proxySD = `${API_BASE}/api/proxy-download?url=${encodeURIComponent(data.data.videoNormal)}&type=video`;
+                    const proxyAudio = `${API_BASE}/api/proxy-download?url=${encodeURIComponent(data.data.audioUrl)}&type=audio`;
+                    
+                    document.getElementById('downloadHD').href = proxyHD;
+                    document.getElementById('downloadSD').href = proxySD;
+                    document.getElementById('downloadAudio').href = proxyAudio;
+                    
+                    resultBox.style.display = 'block';
+                } else {
+                    errorText.innerText = data.error || "වීඩියෝව ලබා ගැනීමට නොහැකි විය.";
+                    errorText.style.display = 'block';
+                }
+
+            } catch (err) {
+                loadingText.style.display = 'none';
+                errorText.innerText = "සර්වර් දෝෂයක් සිදු විය. කරුණාකර පසුව උත්සාහ කරන්න.";
+                errorText.style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+</html>
