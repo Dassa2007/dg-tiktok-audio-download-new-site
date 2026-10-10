@@ -1,227 +1,447 @@
 <!DOCTYPE html>
-<html lang="si">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TikTok Video & Audio Downloader</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .container {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 16px;
-            width: 100%;
-            max-width: 500px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            text-align: center;
-        }
-        h2 {
-            margin-bottom: 20px;
-            color: #38bdf8;
-            font-size: 24px;
-        }
-        .input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        input[type="text"] {
-            flex: 1;
-            padding: 12px 15px;
-            border: 1px solid #475569;
-            background: #0f172a;
-            color: #fff;
-            border-radius: 8px;
-            outline: none;
-            font-size: 14px;
-        }
-        input[type="text"]:focus {
-            border-color: #38bdf8;
-        }
-        button {
-            background: #38bdf8;
-            color: #0f172a;
-            border: none;
-            padding: 12px 20px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        button:hover {
-            background: #0ea5e9;
-        }
-        .loading {
-            display: none;
-            margin: 15px 0;
-            color: #94a3b8;
-            font-size: 14px;
-        }
-        .result-box {
-            display: none;
-            margin-top: 20px;
-            text-align: left;
-            background: #0f172a;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #334155;
-        }
-        .result-box img {
-            width: 100%;
-            max-height: 180px;
-            object-fit: cover;
-            border-radius: 6px;
-            margin-bottom: 10px;
-        }
-        .result-box h3 {
-            font-size: 13px;
-            margin-bottom: 15px;
-            color: #f1f5f9;
-            line-height: 1.4;
-        }
-        .btn-container {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .download-btn {
-            display: block;
-            text-align: center;
-            padding: 12px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 13px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .hd-btn {
-            background: #22c55e;
-            color: white;
-        }
-        .hd-btn:hover {
-            background: #16a34a;
-        }
-        .sd-btn {
-            background: #eab308;
-            color: #0f172a;
-        }
-        .sd-btn:hover {
-            background: #ca8a04;
-        }
-        .audio-btn {
-            background: #ec4899;
-            color: white;
-        }
-        .audio-btn:hover {
-            background: #db2777;
-        }
-        .error-msg {
-            color: #f87171;
-            margin-top: 15px;
-            font-size: 14px;
-            display: none;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Match ❤️</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3, #a18cd1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 520px;
+  background: white;
+  padding: 25px;
+  border-radius: 22px;
+  box-shadow: 0 12px 35px #0002;
+}
+
+h1 {
+  text-align: center;
+  color: #ff477e;
+}
+
+.subtitle {
+  text-align: center;
+  color: #777;
+}
+
+.profile {
+  background: #fff4f8;
+  padding: 18px;
+  margin: 18px 0;
+  border-radius: 15px;
+  border: 1px solid #ffdce7;
+}
+
+.profile h2 {
+  font-size: 19px;
+  color: #ed3970;
+}
+
+label {
+  display: block;
+  margin: 12px 0 6px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 9px;
+  font-size: 15px;
+  background: white;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 75px;
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  border: 0;
+  border-radius: 11px;
+  background: linear-gradient(90deg, #ff477e, #ff758c);
+  color: white;
+  font-weight: bold;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+#result {
+  display: none;
+  margin-top: 22px;
+  padding: 20px;
+  background: #fff0f5;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.score {
+  font-size: 48px;
+  color: #ff477e;
+  font-weight: bold;
+}
+
+.bar {
+  height: 12px;
+  background: #ffd5e1;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+#progress {
+  height: 100%;
+  width: 0;
+  background: #ff477e;
+  transition: width 1s;
+}
+
+.details {
+  text-align: left;
+  line-height: 1.8;
+  margin-top: 18px;
+}
+
+small {
+  color: #888;
+}
+</style>
 </head>
+
 <body>
 
-    <div class="container">
-        <h2>TikTok Downloader</h2>
-        <div class="input-group">
-            <input type="text" id="tiktokUrl" placeholder="TikTok වීඩියෝ ලින්ක් එක මෙතැනට දාන්න...">
-            <button onclick="downloadVideo()">Find</button>
-        </div>
+<div class="container">
 
-        <div class="loading" id="loadingText">විස්තර ලබා ගනිමින් පවතී... ටිකක් ඉන්න.</div>
-        <div class="error-msg" id="errorText"></div>
+  <h1>❤️ Love Match</h1>
+  <p class="subtitle">Discover Your Compatibility!</p>
 
-        <div class="result-box" id="resultBox">
-            <img id="videoCover" src="" alt="Cover">
-            <h3 id="videoTitle"></h3>
-            
-            <div class="btn-container">
-                <a id="downloadHD" class="download-btn hd-btn" href="#" target="_blank">📥 HD Video Download</a>
-                <a id="downloadSD" class="download-btn sd-btn" href="#" target="_blank">📥 SD Video Download</a>
-                <a id="downloadAudio" class="download-btn audio-btn" href="#" target="_blank">🎵 Fast Download Audio (MP3)</a>
-            </div>
-        </div>
+  <form id="matchForm">
+
+    <div class="profile">
+      <h2>👤 Your Information</h2>
+
+      <label for="name1">Your Name</label>
+      <input id="name1" maxlength="50" required
+             placeholder="Enter your name">
+
+      <label for="age1">Your Age</label>
+      <input id="age1" type="number" min="18"
+             max="120" required placeholder="Enter age">
+
+      <label for="gender1">Your Gender</label>
+      <select id="gender1" required>
+        <option value="">Select gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+        <option>Prefer not to say</option>
+      </select>
+
+      <label for="country1">Your Country</label>
+      <select id="country1" required>
+        <option value="">Select country</option>
+        <option>Sri Lanka</option>
+        <option>India</option>
+        <option>Pakistan</option>
+        <option>Bangladesh</option>
+        <option>Nepal</option>
+        <option>United States</option>
+        <option>United Kingdom</option>
+        <option>Canada</option>
+        <option>Australia</option>
+        <option>Japan</option>
+        <option>South Korea</option>
+        <option>Other</option>
+      </select>
+
+      <label for="interests1">Your Interests / Hobbies</label>
+      <input id="interests1" required
+             placeholder="Music, gaming, anime">
+
+      <label for="goal1">Relationship Goal</label>
+      <select id="goal1" required>
+        <option value="">Choose your goal</option>
+        <option>Friendship</option>
+        <option>Dating</option>
+        <option>Long-term relationship</option>
+        <option>Marriage</option>
+      </select>
+
+      <label for="about1">About You</label>
+      <textarea id="about1" maxlength="500"
+                placeholder="Tell us about yourself"></textarea>
     </div>
 
-    <script>
-        const API_BASE = 'https://dg-tiktok-audio-download-api.vercel.app';
+    <div class="profile">
+      <h2>💖 Partner Information</h2>
 
-        async function downloadVideo() {
-            const urlInput = document.getElementById('tiktokUrl').value.trim();
-            const loadingText = document.getElementById('loadingText');
-            const errorText = document.getElementById('errorText');
-            const resultBox = document.getElementById('resultBox');
+      <label for="name2">Partner's Name</label>
+      <input id="name2" maxlength="50" required
+             placeholder="Enter partner's name">
 
-            errorText.style.display = 'none';
-            resultBox.style.display = 'none';
+      <label for="age2">Partner's Age</label>
+      <input id="age2" type="number" min="18"
+             max="120" required placeholder="Enter age">
 
-            if (!urlInput) {
-                errorText.innerText = "කරුණාකර TikTok ලින්ක් එකක් ඇතුළත් කරන්න!";
-                errorText.style.display = 'block';
-                return;
-            }
+      <label for="gender2">Partner's Gender</label>
+      <select id="gender2" required>
+        <option value="">Select gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+        <option>Prefer not to say</option>
+      </select>
 
-            loadingText.style.display = 'block';
+      <label for="country2">Partner's Country</label>
+      <select id="country2" required>
+        <option value="">Select country</option>
+        <option>Sri Lanka</option>
+        <option>India</option>
+        <option>Pakistan</option>
+        <option>Bangladesh</option>
+        <option>Nepal</option>
+        <option>United States</option>
+        <option>United Kingdom</option>
+        <option>Canada</option>
+        <option>Australia</option>
+        <option>Japan</option>
+        <option>South Korea</option>
+        <option>Other</option>
+      </select>
 
-            try {
-                const response = await fetch(`${API_BASE}/api/download/tiktok`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ url: urlInput })
-                });
+      <label for="interests2">Partner's Interests / Hobbies</label>
+      <input id="interests2" required
+             placeholder="Music, gaming, anime">
 
-                const data = await response.json();
-                loadingText.style.display = 'none';
+      <label for="goal2">Partner's Relationship Goal</label>
+      <select id="goal2" required>
+        <option value="">Choose relationship goal</option>
+        <option>Friendship</option>
+        <option>Dating</option>
+        <option>Long-term relationship</option>
+        <option>Marriage</option>
+      </select>
 
-                if (data.success) {
-                    document.getElementById('videoCover').src = data.data.cover;
-                    document.getElementById('videoTitle').innerText = data.data.title;
-                    
-                    // ඔබේ අලුත් API එක හරහා Fast Direct Download ලින්ක් සැකසීම
-                    const proxyHD = `${API_BASE}/api/proxy-download?url=${encodeURIComponent(data.data.videoHD)}&type=video`;
-                    const proxySD = `${API_BASE}/api/proxy-download?url=${encodeURIComponent(data.data.videoNormal)}&type=video`;
-                    const proxyAudio = `${API_BASE}/api/proxy-download?url=${encodeURIComponent(data.data.audioUrl)}&type=audio`;
-                    
-                    document.getElementById('downloadHD').href = proxyHD;
-                    document.getElementById('downloadSD').href = proxySD;
-                    document.getElementById('downloadAudio').href = proxyAudio;
-                    
-                    resultBox.style.display = 'block';
-                } else {
-                    errorText.innerText = data.error || "වීඩියෝව ලබා ගැනීමට නොහැකි විය.";
-                    errorText.style.display = 'block';
-                }
+      <label for="about2">About Your Partner</label>
+      <textarea id="about2" maxlength="500"
+                placeholder="Tell us about your partner"></textarea>
+    </div>
 
-            } catch (err) {
-                loadingText.style.display = 'none';
-                errorText.innerText = "සර්වර් දෝෂයක් සිදු විය. කරුණාකර පසුව උත්සාහ කරන්න.";
-                errorText.style.display = 'block';
-            }
-        }
-    </script>
+    <button type="submit">💘 Generate Match</button>
+
+  </form>
+
+  <div id="result" aria-live="polite">
+    <h2 id="matchTitle"></h2>
+    <div class="score" id="score">0%</div>
+
+    <div class="bar">
+      <div id="progress"></div>
+    </div>
+
+    <h3 id="verdict"></h3>
+    <div class="details" id="details"></div>
+
+    <p>
+      <small>
+        This compatibility score is for entertainment only.
+      </small>
+    </p>
+  </div>
+
+</div>
+
+<script>
+const form = document.getElementById("matchForm");
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const get = id =>
+    document.getElementById(id).value.trim();
+
+  const a = {
+    name: get("name1"),
+    age: Number(get("age1")),
+    gender: get("gender1"),
+    country: get("country1"),
+    interests: get("interests1"),
+    goal: get("goal1"),
+    about: get("about1")
+  };
+
+  const b = {
+    name: get("name2"),
+    age: Number(get("age2")),
+    gender: get("gender2"),
+    country: get("country2"),
+    interests: get("interests2"),
+    goal: get("goal2"),
+    about: get("about2")
+  };
+
+  if (![a.age, b.age].every(age =>
+      Number.isInteger(age) && age >= 18 && age <= 120)) {
+    alert("Both people must be between 18 and 120 years old.");
+    return;
+  }
+
+  // OPEN AD LINK IN A NEW WINDOW/TAB
+  // Runs directly inside the user's Generate button action.
+  const adWindow = window.open(
+    "https://uplcm.com/4/11999733",
+    "_blank"
+  );
+
+  // Compare hobbies
+  function makeSet(value) {
+    return new Set(
+      value.toLowerCase()
+        .split(/[,;]+/)
+        .map(item => item.trim())
+        .filter(Boolean)
+    );
+  }
+
+  const hobbiesA = makeSet(a.interests);
+  const hobbiesB = makeSet(b.interests);
+
+  const common = [...hobbiesA].filter(
+    hobby => hobbiesB.has(hobby)
+  );
+
+  const allHobbies = new Set([
+    ...hobbiesA,
+    ...hobbiesB
+  ]);
+
+  const hobbyScore = allHobbies.size
+    ? common.length / allHobbies.size * 100
+    : 0;
+
+  const ageDifference = Math.abs(a.age - b.age);
+
+  const ageScore = Math.max(
+    0,
+    100 - ageDifference * 5
+  );
+
+  const countryScore =
+    a.country === b.country ? 100 : 50;
+
+  const goalScore =
+    a.goal === b.goal ? 100 : 20;
+
+  const genderScore =
+    a.gender === "Prefer not to say" ||
+    b.gender === "Prefer not to say"
+      ? 70
+      : a.gender === b.gender ? 70 : 100;
+
+  const score = Math.round(
+    hobbyScore * 0.40 +
+    ageScore * 0.20 +
+    countryScore * 0.10 +
+    goalScore * 0.25 +
+    genderScore * 0.05
+  );
+
+  let verdict;
+
+  if (score >= 85) {
+    verdict = "🔥 Excellent Match!";
+  } else if (score >= 70) {
+    verdict = "💕 Great Potential!";
+  } else if (score >= 50) {
+    verdict = "🥰 Some Things in Common!";
+  } else {
+    verdict = "💗 Get to Know Each Other!";
+  }
+
+  document.getElementById("matchTitle").textContent =
+    a.name + " ❤️ " + b.name;
+
+  document.getElementById("score").textContent =
+    score + "%";
+
+  document.getElementById("progress").style.width =
+    score + "%";
+
+  document.getElementById("verdict").textContent =
+    verdict;
+
+  const details = document.getElementById("details");
+  details.replaceChildren();
+
+  const rows = [
+    ["Your name", a.name],
+    ["Partner's name", b.name],
+    ["Your age", a.age],
+    ["Partner's age", b.age],
+    ["Age difference", ageDifference + " years"],
+    ["Your gender", a.gender],
+    ["Partner's gender", b.gender],
+    ["Your country", a.country],
+    ["Partner's country", b.country],
+    ["Your hobbies", a.interests],
+    ["Partner's hobbies", b.interests],
+    ["Shared hobbies", common.length
+      ? common.join(", ")
+      : "No exact matches"],
+    ["Your relationship goal", a.goal],
+    ["Partner's relationship goal", b.goal],
+    ["About you", a.about || "Not provided"],
+    ["About your partner", b.about || "Not provided"]
+  ];
+
+  rows.forEach(([label, value]) => {
+    const p = document.createElement("p");
+    const strong = document.createElement("strong");
+
+    strong.textContent = label + ": ";
+
+    p.append(
+      strong,
+      document.createTextNode(String(value))
+    );
+
+    details.appendChild(p);
+  });
+
+  document.getElementById("result").style.display =
+    "block";
+
+  document.getElementById("result").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+
+  // If the browser blocks the advertisement popup,
+  // the matching result still works normally.
+  if (!adWindow) {
+    console.log("The browser blocked the advertisement popup.");
+  }
+});
+</script>
 
 </body>
-</html>
+    </html>
